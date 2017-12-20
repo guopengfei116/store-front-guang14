@@ -19,17 +19,15 @@
                                         </span>
                                     </p>
                                 </h3>
+                                <!-- 鼠标hover的时候会展示这个盒子, 该盒子以递归的形式展示所有的分类商品 -->
                                 <div class="item-box">
-                                    <!--如有三级分类，此处可循环-->
                                     <dl>
                                         <dt>
                                             <router-link :to="{ name: 'gd', params: { id: item.id } }">{{ item.title }}</router-link>
                                         </dt>
                                         <dd>
-                                            <router-link :to="{ name: 'gd', params: { id: item.id } }"
-                                                v-for="subitem in item.subcates" :key="subitem.id">
-                                                {{ subitem.title }}
-                                            </router-link>
+                                            <!-- 封装一个展示菜单列表的组件, 父这里把列表数据传递过去 -->
+                                            <app-menu :menu="item.subcates" ></app-menu>
                                         </dd>
                                     </dl>
                                 </div>
@@ -54,51 +52,16 @@
                 <!--推荐商品-->
                 <div class="left-220">
                     <ul class="side-img-list">
-
-                        <li>
+                        <li v-for="item in topData.toplist" :key="item.id">
                             <div class="img-box">
                                 <label>1</label>
-                                <img src="/upload/201504/20/thumb_201504200314272543.jpg">
+                                <img :src="item.img_url">
                             </div>
                             <div class="txt-box">
-                                <a href="/goods/show-98.html">奔腾（BNTN） 380功放+纽约至尊 套装家庭影院</a>
-                                <span>2015-04-20</span>
+                                <router-link :to="{ name: 'gd', params: { id: item.id } }">{{ item.title }}</router-link>
+                                <span>{{ item.add_time | date }}</span>
                             </div>
                         </li>
-
-                        <li>
-                            <div class="img-box">
-                                <label>2</label>
-                                <img src="/upload/201504/20/thumb_201504200258403759.jpg">
-                            </div>
-                            <div class="txt-box">
-                                <a href="/goods/show-97.html">三星（SAMSUNG）UA40HU5920JXXZ 40英寸4K超高清</a>
-                                <span>2015-04-20</span>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="img-box">
-                                <label>3</label>
-                                <img src="/upload/201504/20/thumb_201504200242250674.jpg">
-                            </div>
-                            <div class="txt-box">
-                                <a href="/goods/show-95.html">惠普（HP）LaserJet 2035商用黑白激光打印机（黑色）</a>
-                                <span>2015-04-20</span>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="img-box">
-                                <label>4</label>
-                                <img src="/upload/201504/20/thumb_201504200239192345.jpg">
-                            </div>
-                            <div class="txt-box">
-                                <a href="/goods/show-94.html">金士顿（Kingston） DataTraveler SE9 32GB 金属U盘</a>
-                                <span>2015-04-20</span>
-                            </div>
-                        </li>
-
                     </ul>
                 </div>
                 <!--/推荐商品-->
@@ -108,13 +71,15 @@
 </template>
 
 <script>
+    import MenuConponent from './Menu.vue';
+
     export default {
         data() {
             return {
                 topData: {
-                    catelist: [],
+                    toplist: [],
                     sliderlist: [],
-                    toplist: []
+                    catelist: []
                 }
             }
         },
@@ -135,6 +100,10 @@
 
         created() {
             this.getTopData();
+        },
+
+        components: {
+            appMenu: MenuConponent,
         }
 
     };

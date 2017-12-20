@@ -2,12 +2,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import ElementUI from 'element-ui';
+import Filters from './filter';
 import 'element-ui/lib/theme-chalk/index.css'
 import './css/style.css';
 
 // 1.2 启用vue插件
 Vue.use(VueRouter);
 Vue.use(ElementUI);
+Vue.use(Filters);
 
 // 1.3 把axios和api配置对象注入到Vue原型中, 这样组件实例就可以直接访问
 import axios from './js/axios_config.js';
