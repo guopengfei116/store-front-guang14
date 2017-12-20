@@ -24,6 +24,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "element-ui": "^2.0.8",
+    "jquery": "^3.2.1",
     "normalize.css": "^7.0.0",
     "vue": "^2.5.10",
     "vue-quill-editor": "^3.0.4",
