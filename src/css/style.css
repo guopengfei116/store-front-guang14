@@ -545,3 +545,20 @@ table { border-collapse:collapse; border-spacing:0; }
 .goods-tab .tab-head ul li a{ display:block; padding:0 30px; height:42px; line-height:42px; color:#555; font-size:14px; }
 .goods-tab .tab-head ul li a:hover,.goods-tab .tab-head ul li a.selected{ color:#fff; background:#34ad2a; }
 .goods-tab .tab-content{ display:none; }
+
+/*底部样式*/
+.footer{ margin-top:30px; background:#333; }
+.footer .foot-nav{ height:56px; line-height:56px; border-bottom:1px solid #444; }
+    .footer .foot-nav a{ margin:auto 8px; color:#fff; font-size:14px; }
+    .footer .foot-nav a:hover{ color:#34ad2a; }
+    .footer .foot-nav strong{ color:#424242; font-size:14px; font-weight:700; }
+.footer .foot-box{ padding:30px 0; }
+    .footer .foot-box:after{ content:"."; display:block; height:0; clear:both; visibility:hidden; }
+    .footer .foot-box .copyright{ display:block; float:left; padding-left:1%; width:70%; color:#e5e5e5; font-size:12px; }
+    .footer .foot-box .copyright p{ line-height:2.0em; }
+    .footer .foot-box .copyright p.gray{ color:#999; }
+    .footer .foot-box .service{ display:block; float:right; padding:10px 0; width:23%; border-left:1px solid #444; text-align:center; }
+    .footer .foot-box .service a{ display:inline-block; padding:0 15px; color:#34ad2a; line-height:30px; border:1px solid #34ad2a; }
+    .footer .foot-box .service a:hover{ color:#fff; border-color:#34ad2a; background:#34ad2a; }
+    .footer .foot-box .service a i{ font-size:14px; }
+    .footer .foot-box .service p{ display:block; margin-bottom:20px; color:#b0b0b0; font-size:12px; }
