@@ -10,9 +10,9 @@ const routerConfig = [
     { path: '/', redirect: '/goods' },
 
     // 商品模块
-    { path: '/goods', component: GoodsHomeComponent },
-    { path: '/goods/detail/:id', component: GoodsDetailComponent },
-    { path: '/goods/more', component: GoodsMoreComponent }
+    { name: 'g', path: '/goods', component: GoodsHomeComponent },
+    { name: 'gd', path: '/goods/detail/:id', component: GoodsDetailComponent },
+    { name: 'gm', path: '/goods/more', component: GoodsMoreComponent }
 ];
 
 // 对外导出配置好的路由实例
