@@ -1,5 +1,6 @@
 // 1.1 导入第三方包
 import Vue from 'vue';
+import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import ElementUI from 'element-ui';
 import Filters from './filter';
@@ -7,6 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './css/style.css';
 
 // 1.2 启用vue插件
+Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(ElementUI);
 Vue.use(Filters);
@@ -26,5 +28,26 @@ import router from './router';
 new Vue({
     el: '#app',
     render: c => c(AppComponent),  // es6简写语法
-    router    // es6简写语法 
+    router,    // es6简写语法 
+    store: new Vuex.Store({
+        state: {
+            shopcartTotal: 0 
+        },
+
+        // 获取状态, 记住以属性的方式使用
+        getters: {
+            // 计算购物车商品总数
+            shopcartTotal(state) {
+                return state.shopcartTotal;
+            }
+        },
+
+        // 修改状态, 记住要commit方法调用
+        mutations: {
+            // 添加数量
+            upShopcartTotal(state, number) {
+                state.shopcartTotal += number;
+            }
+        }
+    })
 });

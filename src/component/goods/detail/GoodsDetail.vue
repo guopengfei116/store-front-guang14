@@ -79,6 +79,7 @@
         },
 
         methods: {
+            // 按照当前的id获取商品详情
             getGoodsDetail() {
                 this.$http.get(this.$api.goodsDetail + this.id)
                     .then(rsp => this.goodsDetail = rsp.data.message);
@@ -87,6 +88,15 @@
 
         created() {
             this.getGoodsDetail();
+        },
+
+        // 如果是同一个路由规则下批量的url发生变化, 那么不会触发路由页面的更换
+        // 但是$route对象会记录新的url参数等信息, 我们可以监听$route对象, 来得知同一个路由规则下的url变化
+        watch: {
+            $route() {
+                this.id = this.$route.params.id;  // 修改为最新的id
+                this.getGoodsDetail();            // 重新请求数据更新页面内容
+            }
         },
 
         components: {

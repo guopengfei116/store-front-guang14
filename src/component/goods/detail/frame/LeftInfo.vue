@@ -61,9 +61,9 @@
         },
 
         methods: {
-            // 加入购物车
+            // 加入购物车, 修改vuex管理的全局shopcartData数据
             addShopcart() {
-                console.log(11);
+                this.$store.commit('upShopcartTotal', this.goodsCount);
             },
 
             // 数量改变
