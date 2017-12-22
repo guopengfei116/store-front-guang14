@@ -25,9 +25,7 @@
                 <div id="menu2" class="nav-box menuhd">
                     <ul>
                         <li class="index">
-                            <a href="/index.html">
-                                首页
-                            </a>
+                            <router-link to="/">首页</router-link>
                         </li>
                         <li class="news">
                             <a href="/news.html">
@@ -51,9 +49,7 @@
                             </a>
                         </li>
                         <li>
-                            <a target="_blank" href="/admin/index.aspx">
-                                问题提交
-                            </a>
+                            <router-link :to="{ name: 'g' }">购物商城</router-link>
                         </li>
                     </ul>
                 </div>

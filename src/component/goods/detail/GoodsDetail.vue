@@ -22,32 +22,26 @@
                         </div>
 
                         <div id="goodsTabs" class="goods-tab bg-wrap">
+
                             <!--选项卡-->
-                            <div id="tabHead" class="tab-head" style="position: static; top: 517px; width: 925px;">
-                                <ul>
-                                    <li>
-                                        <a class="selected" href="javascript:;">商品介绍</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" class="">商品评论</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            <el-tabs type="border-card">
+                                <!-- 商品介绍 -->
+                                <el-tab-pane label="商品介绍">
+                                    <div class="tab-content entry" v-html="goodsDetail.goodsinfo.content" style="display:block;">
+                                    </div>
+                                </el-tab-pane>
+
+                                <!-- 评论 -->
+                                <el-tab-pane label="商品评论">
+                                    <div class="tab-content" style="display: block;">
+                                        <!--网友评论, 获取商品模块下指定id的评论列表,与发布评论-->
+                                        <app-comment tablename="goods" :artID="id"></app-comment>
+                                        <!--/网友评论-->
+                                    </div>
+                                </el-tab-pane>
+                            </el-tabs>
                             <!--/选项卡-->
-
-                            <!--选项内容-->
-                            <div class="tab-content entry" style="display:block;">
-                                内容
-                            </div>
-
-                            <div class="tab-content" style="display: block;">
-                                <!--网友评论-->
-                                <app-comment></app-comment>
-                                <!--/网友评论-->
-                            </div>
-
                         </div>
-
                     </div>
                     <!--/页面左边-->
 
