@@ -2,8 +2,8 @@ import Vue from 'vue';
 
 export default {
     state: {
-        // 存储购物车商品购买记录
-        shopcartData: {},
+        // 存储购物车商品购买记录, 初始化值应该从本地localStorage里面取, 没有则为空对象
+        shopcartData: JSON.parse(localStorage.getItem('shopcartData')) || {},
     },
 
     // 获取状态, 记住以属性的方式使用
@@ -18,7 +18,6 @@ export default {
         // 2 通过reduce方法把数量累加起来
         // 3 返回累加结果
         getShopcartTotal(state) {
-            console.log(Object.values(state.shopcartData).reduce((s, v) => s + v, 0))
             return Object.values(state.shopcartData).reduce((s, v) => s + v, 0);
         },
 
@@ -45,6 +44,7 @@ export default {
 
             // 因为这里有可能是修改, 也有可能是新增, 为了保证让视图一定刷新, 所以改用Vue.set
             Vue.set(state.shopcartData, params.id, params.val);
+            localStorage.setItem('shopcartData', JSON.stringify(state.shopcartData));
         },
 
         // 在原有的基础上累加购买数量
@@ -58,12 +58,14 @@ export default {
                 // state.shopcartData[params.id] = params.val; 
                 Vue.set(state.shopcartData, params.id, params.val);
             }
+            localStorage.setItem('shopcartData', JSON.stringify(state.shopcartData));
         },
 
         // 删除一条购买记录
         // 通过Vue提供的delete方法删除指定商品ID的数据
         delShopcartData(state, params) {
             Vue.delete(state.shopcartData, params.id);
+            localStorage.setItem('shopcartData', JSON.stringify(state.shopcartData));
         }
     }
 }

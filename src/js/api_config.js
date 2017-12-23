@@ -27,7 +27,7 @@ export default {
     commentList: `/site/comment/getbypage/`,                 // 获取评论, 需要参数: artID, 需要查询: pageIndex 与 pageSize
 
     // 购物车数据
-    shopcarGoods: `/site/comment/getshopcargoods/`,          // 获取购物车商品数据, 需要参数: goodsIDS
+    shopcartGoods: `/site/comment/getshopcargoods/`,        // 获取购物车商品数据, 需要参数: goodsIDS
 
     // 订单数据
     orderList: ` /site/validate/order/getgoodslist/`,        // 获取订单商品列表数据, 需要参数: goodsIDS

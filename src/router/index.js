@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import GoodsHomeComponent from '../component/goods/GoodsHome.vue';
 import GoodsDetailComponent from '../component/goods/detail/GoodsDetail.vue';
 import GoodsMoreComponent from '../component/goods/more/GoodsMore.vue';
+import ShopcartComponent from '../component/shopcart/Shopcart.vue';
 
 // 路由配置对象
 const routerConfig = [
@@ -12,7 +13,10 @@ const routerConfig = [
     // 商品模块
     { name: 'g', path: '/goods', component: GoodsHomeComponent },
     { name: 'gd', path: '/goods/detail/:id', component: GoodsDetailComponent },
-    { name: 'gm', path: '/goods/more', component: GoodsMoreComponent }
+    { name: 'gm', path: '/goods/more', component: GoodsMoreComponent },
+
+    // 购物车模块
+    { name: 's', path: '/shopcart', component: ShopcartComponent },
 ];
 
 // 对外导出配置好的路由实例

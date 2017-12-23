@@ -13,10 +13,10 @@
                     <a href="/register.html">注册</a>
                     <strong>|</strong>
                     <!-- <a href="/content/contact.html"><i class="iconfont icon-phone"></i>联系我们</a> -->
-                    <a href="/cart.html">
+                    <router-link :to="{ name: 's' }">
                         <i class="iconfont icon-cart"></i>
                         购物车({{ $store.getters.getShopcartTotal }})
-                    </a>
+                    </router-link>
                 </div>
             </div>
         </div>

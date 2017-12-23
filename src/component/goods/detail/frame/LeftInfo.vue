@@ -69,13 +69,15 @@
                     id: this.$route.params.id,
                     val: this.goodsCount
                 });
-            },
-
-            // 数量改变
-            handleChange() {
-
             }
         },
+
+        watch: {
+            // url发生变化, 重置商品数量
+            $route() {
+                this.goodsCount = 1;
+            }
+        }
     };
 </script>
 
