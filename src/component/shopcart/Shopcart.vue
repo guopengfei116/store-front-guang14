@@ -45,6 +45,7 @@
                         <input id="jsondata" name="jsondata" type="hidden">
                         <table width="100%" align="center" class="cart-table" border="0" cellspacing="0" cellpadding="8">
                             <tbody>
+                                <!-- 表头 -->
                                 <tr>
                                     <th width="48" align="center">
                                         <a>全选</a>
@@ -55,7 +56,32 @@
                                     <th width="104" align="left">金额(元)</th>
                                     <th width="54" align="center">操作</th>
                                 </tr>
-                                <tr>
+
+                                <!-- 商品列表 -->
+                                <tr v-for="item in goodsList" :key="item.id">
+                                    <td width="48" align="center">
+                                        <el-switch v-model="item.selected" active-color="#13ce66"></el-switch>
+                                    </td>
+                                    <td align="left" colspan="2">
+                                        <img width="50" height="50" :src="item.img_url" alt="">
+                                        <span>{{ item.title }}</span>
+                                    </td>
+                                    <td width="84" align="left">
+                                        ￥{{ item.sell_price }}
+                                    </td>
+                                    <td width="104" align="center">
+                                        <el-input-number v-model="item.buycount" @change="numberChange(item.id, $event)"
+                                            size="mini" :min="1"></el-input-number>
+                                    </td>
+                                    <td width="104" align="left">
+                                        ￥{{ item.sell_price * item.buycount }}</td>
+                                    <td width="54" align="center">
+                                        <el-button size="mini" @click.native="delGoods(item.id)">删除</el-button>
+                                    </td>
+                                </tr>
+
+                                <!-- 没有商品的提示 -->
+                                <tr v-if="!goodsList.length">
                                     <td colspan="10">
                                         <div class="msg-tips">
                                             <div class="icon warning">
@@ -69,6 +95,8 @@
                                         </div>
                                     </td>
                                 </tr>
+
+                                <!-- 勾选的总数与总价 -->
                                 <tr>
                                     <th align="right" colspan="8">
                                         已选择商品
@@ -108,7 +136,31 @@
             // 通过IDS获取商品列表
             getGoodsList() {
                 this.$http.get(this.$api.shopcartGoods + this.$store.getters.getShopcartIDS)
-                    .then(rsp => this.goodsList = rsp.data.message);
+                    .then(rsp => {
+                        
+                        rsp.data.message.forEach(goods => {
+                            // 给请求回来的每个商品对象添加一个selected属性, 用于绑定Switch开关
+                            goods.selected = true;
+
+                            // 后台返回的buycount属性不正确, 我们给他修正一下
+                            goods.buycount = this.$store.getters.getShopcartData[goods.id];
+                        });
+                        this.goodsList = rsp.data.message
+                    });
+            },
+
+            // 数字输入框变化时执行该方法
+            // 方法需要拿到商品ID与新的购买数值
+            numberChange(id, val) {
+                this.$store.commit('upShopcartData', { id: id, val: val });
+            },
+
+            // 删除商品
+            // 1 从共享数据中删除, 这样本地storage与右上角购物车总数会跟着更新
+            // 2 从当前组件的goodsList里面删除商品数据, 这样商品列表会跟着更新
+            delGoods(id) {
+                this.$store.commit('delShopcartData', { id: id });
+                this.goodsList = this.goodsList.filter(v => v.id != id); // 留下不删除的商品
             }
         },
 
