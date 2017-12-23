@@ -12,6 +12,8 @@ module.exports = {
         filename: 'bundle.js'
     },
 
+    devtool: 'cheap-module-eval-source-map',
+
     plugins: [
 
         // 自动把打包js注入到html

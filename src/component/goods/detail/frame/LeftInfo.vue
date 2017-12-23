@@ -27,7 +27,7 @@
                 <dd>
                     <div class="stock-box">
                         <!-- elementUI的计数器组件: max最大数量为库存, v-model关联一个数据 -->
-                        <el-input-number v-model="goodsCount" @change="handleChange"
+                        <el-input-number v-model="goodsCount"
                             :min="1" :max="goodsinfo.stock_quantity" size="small" label="购买数量">
                         </el-input-number>
                     </div>

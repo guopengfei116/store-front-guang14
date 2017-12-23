@@ -45,11 +45,15 @@
 
         <!--放置页码-->
         <div class="page-box" style="margin:5px 0 0 62px">
-            <div id="pagination" class="digg">
-                <span class="disabled">« 上一页</span>
-                <span class="current">1</span>
-                <span class="disabled">下一页 »</span>
-            </div>
+            <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="query.pageIndex"
+                :page-sizes="[4, 6, 8, 10]"
+                :page-size="query.pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="totalcount" background>
+            </el-pagination>
         </div>
         <!--/放置页码-->
     </div>
@@ -71,19 +75,39 @@
                 // 获取评论列表时所需的查询字符串, 将来通过elementUI的分页组件来动态控制它们的值
                 query: {
                     pageIndex: 1,
-                    pageSize: 5
-                }
+                    pageSize: 4
+                },
+
+                // 评论总数
+                totalcount: 0
             }
         },
 
         methods: {
+            // 修改页码
+            handleCurrentChange(page) {
+                this.query.pageIndex = page;
+                this.getCommentList();
+            },
+
+            // 修改每页数量
+            handleSizeChange(size) {
+                this.query.pageSize = size;
+                this.getCommentList();
+            },
+
             // 获取评论列表
             getCommentList() {
                 // 记得加上参数与查询, 其中get的第二个参数为一个配置对象, 可以设置请求头等信息
-                this.$http.get(
+                this.$http
+                .get(
                     this.$api.commentList + this.tablename + '/' + this.artID,
                     { params: this.query }
-                ).then(rsp => this.commentList = rsp.data.message);
+                )
+                .then(rsp => {
+                    this.commentList = rsp.data.message;
+                    this.totalcount = rsp.data.totalcount;
+                });
             },
 
             // 提交评论

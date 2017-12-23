@@ -48,7 +48,8 @@
                                 <!-- 表头 -->
                                 <tr>
                                     <th width="48" align="center">
-                                        <a>全选</a>
+                                        <!-- 设置value属性 -->
+                                        <el-switch :value="allSwitchState" @change="switchAllChange" active-color="#13ce66"></el-switch>
                                     </th>
                                     <th align="left" colspan="2">商品信息</th>
                                     <th width="84" align="left">单价</th>
@@ -100,9 +101,9 @@
                                 <tr>
                                     <th align="right" colspan="8">
                                         已选择商品
-                                        <b class="red" id="totalQuantity">0</b> 件 &nbsp;&nbsp;&nbsp; 商品总金额（不含运费）：
+                                        <b class="red" id="totalQuantity">{{ selectedShopcartTotal }}</b> 件 &nbsp;&nbsp;&nbsp; 商品总金额（不含运费）：
                                         <span class="red">￥</span>
-                                        <b class="red" id="totalAmount">0</b>元
+                                        <b class="red" id="totalAmount">{{ selectedShopcartTotalPrice }}</b>元
                                     </th>
                                 </tr>
                             </tbody>
@@ -132,16 +133,41 @@
             }
         },
 
+        computed: {
+            // 选取的商品总数
+            // 1 遍历商品列表
+            // 2 找出selected为true的商品, 累加他们的购买数量
+            selectedShopcartTotal() {
+                return this.goodsList.reduce((s, v) => v.selected? s + v.buycount: s, 0);
+            },
+
+            // 选取的商品总价
+            // 1 遍历商品列表
+            // 2 找出selected为true的商品, 累加他们的单价 * 购买数量
+            selectedShopcartTotalPrice() {
+                return this.goodsList.reduce((s, v) => v.selected? s + v.sell_price * v.buycount: s, 0);
+            },
+
+            // 全选swtich的状态
+            allSwitchState() {
+                return this.goodsList.every(v => v.selected);
+            }
+        },
+
         methods: {
+            // 全选awitch切换
+            switchAllChange(bol) {
+                this.goodsList.forEach(v => v.selected = bol);
+            },
+
             // 通过IDS获取商品列表
             getGoodsList() {
                 this.$http.get(this.$api.shopcartGoods + this.$store.getters.getShopcartIDS)
                     .then(rsp => {
-                        
                         rsp.data.message.forEach(goods => {
                             // 给请求回来的每个商品对象添加一个selected属性, 用于绑定Switch开关
                             goods.selected = true;
-
+                            
                             // 后台返回的buycount属性不正确, 我们给他修正一下
                             goods.buycount = this.$store.getters.getShopcartData[goods.id];
                         });
