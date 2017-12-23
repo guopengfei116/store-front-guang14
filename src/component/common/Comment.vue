@@ -28,7 +28,7 @@
             </p>
 
             <!-- 具体评论 -->
-            <li v-for="item in commentList" :key="item.add_time">
+            <li v-for="(item, i) in commentList" :key="i">
                 <div class="avatar-box">
                     <i class="iconfont icon-user-full"></i>
                 </div>
@@ -110,6 +110,13 @@
                     });
                     this.commentContent = '';
                 });
+            }
+        },
+
+        watch: {
+            // 监听ID的变化, 从而更新不同ID下的评论列表
+            artID() {
+                this.getCommentList();
             }
         },
 

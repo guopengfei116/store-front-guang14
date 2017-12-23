@@ -31,7 +31,7 @@ new Vue({
     router,    // es6简写语法 
     store: new Vuex.Store({
         state: {
-            shopcartTotal: 0 
+            shopcartTotal: 0
         },
 
         // 获取状态, 记住以属性的方式使用
