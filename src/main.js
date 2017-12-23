@@ -25,29 +25,12 @@ import AppComponent from './component/App.vue';
 // 导入路由实例, 因为路由使用了一个单独的文件进行管理
 import router from './router';
 
+// 导入store配置项
+import storeConfog from './store';
+
 new Vue({
     el: '#app',
     render: c => c(AppComponent),  // es6简写语法
     router,    // es6简写语法 
-    store: new Vuex.Store({
-        state: {
-            shopcartTotal: 0
-        },
-
-        // 获取状态, 记住以属性的方式使用
-        getters: {
-            // 计算购物车商品总数
-            shopcartTotal(state) {
-                return state.shopcartTotal;
-            }
-        },
-
-        // 修改状态, 记住要commit方法调用
-        mutations: {
-            // 添加数量
-            upShopcartTotal(state, number) {
-                state.shopcartTotal += number;
-            }
-        }
-    })
+    store: new Vuex.Store(storeConfog)
 });

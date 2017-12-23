@@ -15,7 +15,7 @@
                     <!-- <a href="/content/contact.html"><i class="iconfont icon-phone"></i>联系我们</a> -->
                     <a href="/cart.html">
                         <i class="iconfont icon-cart"></i>
-                        购物车({{ $store.getters.shopcartTotal }})
+                        购物车({{ $store.getters.getShopcartTotal }})
                     </a>
                 </div>
             </div>

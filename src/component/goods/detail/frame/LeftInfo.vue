@@ -56,14 +56,19 @@
 
         data() {
             return {
+                // 关联+-按钮的购买数量
                 goodsCount: 1
             }
         },
 
         methods: {
-            // 加入购物车, 修改vuex管理的全局shopcartData数据
+            // 加入购物车
+            // 通过commit方法累加商品购买记录
             addShopcart() {
-                this.$store.commit('upShopcartTotal', this.goodsCount);
+                this.$store.commit('addShopcartData', { 
+                    id: this.$route.params.id,
+                    val: this.goodsCount
+                });
             },
 
             // 数量改变
