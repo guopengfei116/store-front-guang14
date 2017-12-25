@@ -12,6 +12,9 @@ module.exports = {
         filename: 'bundle.js'
     },
 
+    // 这个工具会自动压缩, 他的作用是为了调试, 在浏览器中可以看到源代码, 加断点, 
+    // 虽然有时候不太准, 但是对于纯js脚本一般很准
+    // 注意: 使用了该工具会向打包后的js文件注入大量辅助调试的脚本, 所以该工具在开发时使用, 上线前打包前面不要用
     devtool: 'cheap-module-eval-source-map',
 
     plugins: [
