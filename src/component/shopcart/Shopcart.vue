@@ -115,7 +115,7 @@
                     <div class="cart-foot clearfix">
                         <div class="right-box">
                             <button class="button" onclick="javascript:location.href='/index.html';">继续购物</button>
-                            <button class="submit" onclick="formSubmit(this, '/', '/shopping.html');">立即结算</button>
+                            <button class="submit" @click="downdowndown">立即结算</button>
                         </div>
                     </div>
                     <!--购物车底部-->
@@ -187,6 +187,27 @@
             delGoods(id) {
                 this.$store.commit('delShopcartData', { id: id });
                 this.goodsList = this.goodsList.filter(v => v.id != id); // 留下不删除的商品
+            },
+
+            // 下订单
+            downdowndown() {
+                this.$http.get(this.$api.isLogin).then(rsp => {
+                    // 如果登陆了, 跳转到下单页面, 把勾选上的商品IDS传过去, 因为下单页要展示
+                    if(rsp.data.code === 'logined') {
+                        this.$router.push({ 
+                            name: 'oa', 
+                            query: { 
+                                // 遍历所有商品, 找出selected为true的, 把它们的ID拼成字符串
+                                // filter先找出符合条件的商品, map拿出每个商品的id, 最后join合成字符串
+                                selectedIDS: this.goodsList.filter(v => v.selected).map(v => v.id).join(',')
+                            } 
+                        });
+                    }
+                    // 如果未登陆, 跳转到登陆页, 但是需要设置一下查询串, 把登陆后跳转的页面指定一下
+                    else {
+                        this.$router.push({ name: 'l', query: { nextPage: this.$route.fullPath } });
+                    }
+                });
             }
         },
 

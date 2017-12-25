@@ -29,6 +29,7 @@
     "element-ui": "^2.0.8",
     "jquery": "^3.2.1",
     "normalize.css": "^7.0.0",
+    "v-distpicker": "^1.0.14",
     "vue": "^2.5.10",
     "vue-quill-editor": "^3.0.4",
     "vue-router": "^3.0.1",

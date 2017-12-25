@@ -5,6 +5,9 @@ import GoodsDetailComponent from '../component/goods/detail/GoodsDetail.vue';
 import GoodsMoreComponent from '../component/goods/more/GoodsMore.vue';
 import ShopcartComponent from '../component/shopcart/Shopcart.vue';
 
+import LoginComponent from '../component/user/Login.vue';
+import OrderAddComponent from '../component/order/OrderAdd.vue';
+
 // 路由配置对象
 const routerConfig = [
     // 默认访问商品首页
@@ -17,6 +20,12 @@ const routerConfig = [
 
     // 购物车模块
     { name: 's', path: '/shopcart', component: ShopcartComponent },
+
+    // 账户管理
+    { name: 'l', path: '/login', component: LoginComponent },
+
+    // 订单模块
+    { name: 'oa', path: '/order/add', component: OrderAddComponent },
 ];
 
 // 对外导出配置好的路由实例
